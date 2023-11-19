@@ -16,7 +16,7 @@ export class ProductDto {
 	public status: any;
 
 	@ApiProperty({example: 2})
-	public brandid: number;
+	public brandId: number;
 	
 	@ApiProperty({example: "its deliciuos"})
 	public description: string;

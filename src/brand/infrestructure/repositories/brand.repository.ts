@@ -5,6 +5,7 @@ import { isNotEmpty } from "src/core/shared/utlis/lodash.utils";
 import { BrandDto } from "../dtos/brand.dto";
 import { NotFoundException } from '@nestjs/common';
 import { BrandEntity } from '../entities/brand.entity';
+import { BrandNotFoundException } from 'src/brand/domain/services/exceptions/brand.exceptions';
 
 
 export class BrandRepository {
@@ -20,8 +21,14 @@ export class BrandRepository {
 
     async update(dto: BrandDto) {
         const exists = await this.existsById(dto.id);
-        if (exists) return this.brand.save(dto);
-        throw new NotFoundException("Not found brand by id");
+        if (exists) {
+            const brandId = dto.id;
+            delete dto.id;
+            delete dto.userId;
+            await this.brand.update(brandId, dto);
+            return dto;
+        }
+        throw new BrandNotFoundException()
     }
 
     findByDto(dto: SearchBrandDto) {
@@ -33,7 +40,7 @@ export class BrandRepository {
     }
 
     async existsById(id: number) {
-        const count = await this.brand.count({where:{id: id}});
+        const count = await this.brand.count({where:{id: Number(id)}});
         return count > 0;
     }
 

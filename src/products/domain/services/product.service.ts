@@ -5,6 +5,7 @@ import { ProductDto } from 'src/products/infrestructure/dtos/product.dto';
 import { ProductRepository } from 'src/products/infrestructure/repositories/product.repository';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { SearchProductDto } from 'src/products/infrestructure/dtos/search.product.dto';
+import { InvalidInfoException, ProductNotFoundException } from '../exceptions/product.exceptions';
 
 
 @Injectable()
@@ -27,7 +28,7 @@ export class ProductService {
             await this.saveLog(dto.userId, UserProductAction.INSERT)
             return product;
         }
-        throw new BadRequestException("Does not insert product, validate info");
+        throw new InvalidInfoException();
     }
 
     async update(dto: ProductDto) {
@@ -40,14 +41,14 @@ export class ProductService {
 
     async softDelete(id: number, userId: number){
         const exists = await this.productRepository.existsById(id);
-        if (exists) {
-            await Promise.all([
-                this.saveLog(userId, UserProductAction.DELETE),
-                this.productRepository.softDelete(id)
-            ]);
-        
+        if (!exists) {
+            throw new ProductNotFoundException();
         }
-        throw new NotFoundException("Product id does not exists");
+        await Promise.all([
+            this.saveLog(userId, UserProductAction.DELETE),
+            this.productRepository.softDelete(id)
+        ]);
+        
     }
 
     async getByDto(dto: SearchProductDto, userId: number) {

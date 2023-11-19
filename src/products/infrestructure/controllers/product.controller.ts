@@ -37,6 +37,7 @@ export class ProductController {
   @ApiParam({ example: 3, name: "id" })
   async update(@Body() dto: ProductDto, @Param("id") id: number, @Req() req: IApiRequest){
     dto.userId = req.user.id;
+    dto.id = id;
     return await this.commandBus.execute(new UpdateProductCommand(dto))
   }
 
@@ -49,7 +50,7 @@ export class ProductController {
   @ApiParam({ example: 3, name: "id" })
   async delete(@Param("id") id: number, @Req() req: IApiRequest){
 
-    return await this.commandBus.execute(new DeleteProductCommand(id, req.user.id));
+    return await this.commandBus.execute(new DeleteProductCommand(Number(id), req.user.id));
   }
 
   @Get()

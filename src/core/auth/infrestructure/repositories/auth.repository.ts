@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { UserEntity } from '../../infrestructure/entities/user.entity';
 import { UserDto } from '../dto/user.dto';
+import { AlreadyEmailExistsException } from '../../domain/exceptions/user.exceptions';
 
 
 
@@ -15,7 +16,7 @@ export class UserRepository {
 
     async insert(dto: UserDto) {
         const exists = await this.existsByEmail(dto.email);
-        if (exists) throw new BadRequestException("Already exists email");
+        if (exists) throw new AlreadyEmailExistsException();
         return await this.user.save(this.user.create(dto));
     }
 

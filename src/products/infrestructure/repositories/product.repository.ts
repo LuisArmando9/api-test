@@ -6,6 +6,7 @@ import { isNotEmpty } from "src/core/shared/utlis/lodash.utils";
 import { ProductDto } from "../dtos/product.dto";
 import { NotFoundException } from '@nestjs/common';
 import { BrandEntity } from "src/brand/infrestructure/entities/brand.entity";
+import { ProductNotFoundException } from "src/products/domain/exceptions/product.exceptions";
 
 
 export class ProductRepository {
@@ -20,7 +21,7 @@ export class ProductRepository {
     }   
 
     async insert(dto: ProductDto) {
-        const countBrand = await this.brand.count({where:{id:dto.brandid}});
+        const countBrand = await this.brand.count({where:{id:dto.brandId}});
         if (countBrand <= 0) throw new NotFoundException("Not found brand");
         const entity = this.product.create(dto);
         return this.product.save(entity);
@@ -28,8 +29,15 @@ export class ProductRepository {
 
     async update(dto: ProductDto) {
         const exists = await this.existsById(dto.id);
-        if (exists) return this.product.save(dto);
-        throw new NotFoundException("Not found product by id");
+        if (exists) {
+            const productId = dto.id;
+            delete dto.brandId;
+            delete dto.id;
+            delete dto.userId;
+            await this.product.update(productId, dto);
+            return dto;
+        }
+        throw new ProductNotFoundException()
     }
 
     findByDto(dto: SearchProductDto) {
@@ -43,7 +51,7 @@ export class ProductRepository {
     }
 
     async existsById(id: number) {
-        const count = await this.product.count({where:{id: id}});
+        const count = await this.product.count({where:{id: Number(id)}});
         return count > 0;
     }
 

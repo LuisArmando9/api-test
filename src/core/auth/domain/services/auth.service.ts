@@ -9,6 +9,7 @@ import { SearchProductDto } from 'src/products/infrestructure/dtos/search.produc
 import { UserRepository } from '../../infrestructure/repositories/auth.repository';
 import {  UserDto } from '../../infrestructure/dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { InvalidPasswordException, UserNotFoundException } from '../exceptions/user.exceptions';
 
 
 @Injectable()
@@ -24,8 +25,8 @@ export class AuthService {
     
     async login(dto: UserDto) {
         const user = await this.userRepository.findByEmail(dto.email);
-        if (!user) throw new NotFoundException("User not found");
-        if (!user.isValidPassword(dto.password))  throw new NotFoundException("Invalid password");
+        if (!user) throw new UserNotFoundException();
+        if (!user.isValidPassword(dto.password))  throw new InvalidPasswordException();
         return {
             jwtToken: this.jwtService.sign({
                 email: user.email,

@@ -8,6 +8,7 @@ import { SearchProductDto } from 'src/products/infrestructure/dtos/search.produc
 import { BrandRepository } from 'src/brand/infrestructure/repositories/brand.repository';
 import { SearchBrandDto } from 'src/brand/infrestructure/dtos/search.brand.dto';
 import { BrandDto } from 'src/brand/infrestructure/dtos/brand.dto';
+import { BrandNotFoundException, InvalidBranDataException } from './exceptions/brand.exceptions';
 
 
 @Injectable()
@@ -30,7 +31,7 @@ export class BrandService {
             await this.saveLog(dto.userId, UserBrandAction.INSERT)
             return product;
         }
-        throw new BadRequestException("Does not insert product, validate info");
+        throw new InvalidBranDataException()
     }
 
     async update(dto: BrandDto) {
@@ -43,14 +44,14 @@ export class BrandService {
 
     async softDelete(id: number, userId: number){
         const exists = await this.brandRepository.existsById(id);
-        if (exists) {
-            await Promise.all([
-                this.saveLog(userId, UserBrandAction.DELETE),
-                this.brandRepository.softDelete(id)
-            ]);
-        
+        if (!exists) {
+            throw new BrandNotFoundException();
         }
-        throw new NotFoundException("Brand id does not exists");
+        await Promise.all([
+            this.saveLog(userId, UserBrandAction.DELETE),
+            this.brandRepository.softDelete(id)
+        ]);
+        
     }
 
     async getByDto(dto: SearchBrandDto, userId: number) {
