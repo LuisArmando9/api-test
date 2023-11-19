@@ -3,7 +3,6 @@ import { Repository } from 'typeorm';
 import { SearchBrandDto } from "../dtos/search.brand.dto";
 import { isNotEmpty } from "src/core/shared/utlis/lodash.utils";
 import { BrandDto } from "../dtos/brand.dto";
-import { NotFoundException } from '@nestjs/common';
 import { BrandEntity } from '../entities/brand.entity';
 import { BrandNotFoundException } from 'src/brand/domain/services/exceptions/brand.exceptions';
 
