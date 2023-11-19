@@ -46,6 +46,10 @@ const entities = [
         entities: entities,
         synchronize: false,
         legacySpatialSupport: false,
+        ssl: db.ssl === "true",
+        extra:{
+          ssl: db.ssl === "true" ? { rejectUnauthorized: true} : null
+        }
       }),
       inject: [Vars.KEY],
     }),

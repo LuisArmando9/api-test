@@ -9,7 +9,8 @@ export const Vars = registerAs(CONFIG_NAME, () =>
       port: Number(process.env.DB_PORT),
       password: process.env.DB_PASSWORD,
       user:process.env.DB_USER,
-      host:process.env.DB_HOST
+      host:process.env.DB_HOST,
+      ssl: process.env.SSL
     },
     jwt: {
       password: process.env.JWT_PASSWORD
