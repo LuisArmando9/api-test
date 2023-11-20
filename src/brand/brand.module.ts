@@ -1,6 +1,6 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import {  brandController } from './infrestructure/controllers/brand.controller';
-import { BrandService } from './domain/services/brand.service';
+import BrandService from './domain/services/brand.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrandEntity } from './infrestructure/entities/brand.entity';
 import { UserLogRepository } from 'src/core/shared/repositories/user.log.repository';

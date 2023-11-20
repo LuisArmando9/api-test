@@ -5,9 +5,10 @@ import { isNotEmpty } from "src/core/shared/utlis/lodash.utils";
 import { BrandDto } from "../dtos/brand.dto";
 import { BrandEntity } from '../entities/brand.entity';
 import { BrandNotFoundException } from 'src/brand/domain/services/exceptions/brand.exceptions';
+import { IBaseRepository } from 'src/core/shared/interfaces/base.repository.interface';
 
 
-export class BrandRepository {
+export class BrandRepository implements IBaseRepository<BrandEntity, SearchBrandDto, BrandDto >  {
     constructor(
     @InjectRepository(BrandEntity) 
     private readonly brand: Repository<BrandEntity>
