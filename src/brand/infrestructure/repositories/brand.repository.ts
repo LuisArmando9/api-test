@@ -6,6 +6,7 @@ import { BrandDto } from "../dtos/brand.dto";
 import { BrandEntity } from '../entities/brand.entity';
 import { BrandNotFoundException } from 'src/brand/domain/services/exceptions/brand.exceptions';
 import { IBaseRepository } from 'src/core/shared/interfaces/base.repository.interface';
+import { paginate, paginateRaw, IPaginationMeta } from 'nestjs-typeorm-paginate';
 
 
 export class BrandRepository implements IBaseRepository<BrandEntity, SearchBrandDto, BrandDto >  {
@@ -36,7 +37,7 @@ export class BrandRepository implements IBaseRepository<BrandEntity, SearchBrand
         if (isNotEmpty(dto.name)) qb.andWhere("b.name = :name");
         if (isNotEmpty(dto.status)) qb.andWhere("b.status = :status");
         qb.setParameters(dto);
-        return qb.getMany();
+        return paginate<BrandEntity>(qb, dto);
     }
 
     async existsById(id: number) {

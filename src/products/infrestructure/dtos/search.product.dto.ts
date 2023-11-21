@@ -1,7 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsOptional, IsString } from "class-validator";
-
-export class SearchProductDto {
+import { IsDateString, IsNumberString, IsOptional, IsString, IsNumber } from "class-validator";
+import {
+  
+    IPaginationOptions,
+  } from 'nestjs-typeorm-paginate';
+export class SearchProductDto implements IPaginationOptions {
     @ApiProperty({example: "coca cola", required: false})
     @IsString()
 	@IsOptional()
@@ -21,4 +24,16 @@ export class SearchProductDto {
     @IsDateString()
 	@IsOptional()
     created: Date;
+
+    @ApiProperty({example: 1, required: false})
+    @IsNumber()
+    @IsNumberString()
+	@IsOptional()
+    limit: number | string;
+
+    @ApiProperty({example: 1, required: false})
+    @IsNumber()
+    @IsNumberString()
+	@IsOptional()
+    page: number | string;
 }

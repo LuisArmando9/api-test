@@ -1,8 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BrandStatus } from "./brand.dto";
-import { IsEnum, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
+import {
+  
+    IPaginationOptions,
+  } from 'nestjs-typeorm-paginate';
+export class SearchBrandDto implements IPaginationOptions {
 
-export class SearchBrandDto {
     @ApiProperty({example: "coca cola", required: false})
     @IsString()
 	@IsOptional()
@@ -12,4 +16,16 @@ export class SearchBrandDto {
     @IsEnum(BrandStatus)
 	@IsOptional()
     status: BrandStatus;
+
+    @ApiProperty({example: 1, required: false})
+    @IsNumber()
+    @IsNumberString()
+	@IsOptional()
+    limit: number | string;
+
+    @ApiProperty({example: 1, required: false})
+    @IsNumber()
+    @IsNumberString()
+	@IsOptional()
+    page: number | string;
 }

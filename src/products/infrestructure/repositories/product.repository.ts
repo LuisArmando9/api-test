@@ -7,9 +7,11 @@ import { ProductDto } from "../dtos/product.dto";
 import { NotFoundException } from '@nestjs/common';
 import { BrandEntity } from "src/brand/infrestructure/entities/brand.entity";
 import { ProductNotFoundException } from "src/products/domain/exceptions/product.exceptions";
+import { paginate, paginateRaw } from "nestjs-typeorm-paginate";
+import { IBaseRepository } from "src/core/shared/interfaces/base.repository.interface";
 
 
-export class ProductRepository {
+export class ProductRepository implements IBaseRepository<ProductEntity, SearchProductDto, ProductDto>  {
     private readonly brand: Repository<BrandEntity>
     constructor(
     @InjectRepository(ProductEntity) 
@@ -46,8 +48,7 @@ export class ProductRepository {
         if (isNotEmpty(dto?.name)) qb.andWhere("p.name = :name");
         if (isNotEmpty(dto?.created)) qb.andWhere("p.createdAt >= :created");
         if (isNotEmpty(dto?.updated)) qb.andWhere("p.updatedAt >= :updated");
-        qb.setParameters(dto);
-        return qb.getMany();
+        return paginate<ProductEntity>(qb, dto);
     }
 
     async existsById(id: number) {
