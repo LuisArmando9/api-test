@@ -14,6 +14,10 @@ export class BrandRepository implements IBaseRepository<BrandEntity, SearchBrand
     @InjectRepository(BrandEntity) 
     private readonly brand: Repository<BrandEntity>
     ){}
+    
+    findById(id: number): Promise<BrandEntity> {
+        return this.brand.findOneBy({id});
+    }
 
     insert(dto: BrandDto) {
         const entity = this.brand.create(dto);

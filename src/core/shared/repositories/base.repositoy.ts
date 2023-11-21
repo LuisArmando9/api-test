@@ -32,10 +32,10 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @returns 
      */
     async insert(dto: BaseDto) {
-        const product = await this.repository.insert(dto);
-        if (product) {
+        const entity = await this.repository.insert(dto);
+        if (entity) {
             await this.saveLog(dto.userId, this.logTypeAction.INSERT)
-            return product;
+            return entity;
         }
         throw this.exceptions.invalidData;
     }
@@ -46,10 +46,10 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @returns 
      */
     async update(dto: BaseDto) {
-        const product = await this.repository.update(dto);
-        if (product) {
+        const entity = await this.repository.update(dto);
+        if (entity) {
             await this.saveLog(dto.userId, this.logTypeAction.UPDATE)
-            return product;
+            return entity;
         }
     }
 
@@ -78,6 +78,17 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async getByDto(dto: SearchDto, userId: number) {
         await this.saveLog(userId, this.logTypeAction.GET_BY_DTO);
         return this.repository.findByDto(dto);
+    }
+    
+    /**
+     * 
+     * @param id 
+     * @returns 
+     */
+    async getById( id: number ) {
+        const  entity = await this.repository.findById(id);
+        if (!entity) throw this.exceptions.notFound;
+        return entity;
     }
 
 }

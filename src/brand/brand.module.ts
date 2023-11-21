@@ -11,13 +11,15 @@ import { UpdateBrandHandler } from './aplication/command/handler/update.brand.ha
 import { GetBrandHandler } from './aplication/query/handler/get.brand.query.handler';
 import { DeleteBrandHandler } from './aplication/command/handler/delete.brand.handler';
 import { BrandRepository } from './infrestructure/repositories/brand.repository';
+import { GetBrandByIdHandler } from './aplication/query/handler/get.brand.by.id.query.handler';
 const commands = [
     UpdateBrandHandler,
     CreateBrandHandler,
     DeleteBrandHandler
 ];
 const queries = [
-  GetBrandHandler
+  GetBrandHandler,
+  GetBrandByIdHandler
 ]
 
 @Module({

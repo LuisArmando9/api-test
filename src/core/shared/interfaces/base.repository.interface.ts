@@ -4,6 +4,7 @@ export interface IBaseRepository<Entity, SearchDto, BaseDto> {
     insert(dto: BaseDto): Promise<Entity>;
     update(dto: BaseDto):  Promise<BaseDto>;
     findByDto(dto: SearchDto):  Promise<Pagination<Entity, IPaginationMeta>>;
+    findById(id: number):  Promise<Entity | null | undefined>;
     existsById(id: number): Promise<boolean>;
     softDelete(id: number): Promise<void | UpdateResult>;
 

@@ -1,5 +1,4 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { ProductController } from './infrestructure/controllers/product.controller';
 import { ProductService } from './domain/services/product.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,13 +11,15 @@ import { CreateProductHandler } from './aplication/command/handler/create.produc
 import { DeleteProductHandler } from './aplication/command/handler/delete.product.handler';
 import { UpdateProductHandler } from './aplication/command/handler/update.product.handler';
 import { GetProductsHandler } from './aplication/query/handler/get.product.query.handler';
+import { GetProductByIdHandler } from './aplication/query/handler/get.product.by.id.query.';
 const commands = [
     UpdateProductHandler,
     CreateProductHandler,
     DeleteProductHandler
 ];
 const queries = [
-    GetProductsHandler
+    GetProductsHandler,
+    GetProductByIdHandler
 ]
 
 @Module({

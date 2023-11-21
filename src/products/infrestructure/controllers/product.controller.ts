@@ -10,6 +10,7 @@ import { ApiBearerAuth, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiRes
 import { ProductEntity } from '../entities/product.entity';
 import { ApiAuthGuard } from 'src/core/auth/domain/guards/auth.guard';
 import { IApiRequest } from 'src/core/shared/interfaces/request.interface';
+import { GetProductByIdQuery } from 'src/products/aplication/query/implementation/get.product.by.id.query';
 
 
 @ApiTags('Products')
@@ -56,9 +57,19 @@ export class ProductController {
   @Get()
   @UseGuards(ApiAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'get list product Product' })
-  @ApiResponse({ status: 200, description: 'get list delete product', type:[ProductEntity] })
+  @ApiOperation({ summary: 'get list  Products' })
+  @ApiResponse({ status: 200, type:[ProductEntity] })
   async getByDto(@Query() dto: SearchProductDto, @Req() req: IApiRequest){
     return await this.queryBus.execute(new GetProductByDtoQuery(dto, req.user.id));
+  }
+
+  @Get(":id")
+  @UseGuards(ApiAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'get product  by id' })
+  @ApiResponse({ status: 200, description: 'product', type:ProductEntity })
+  @ApiParam({ example: 3, name: "id" })
+  async getById(@Param("id") id: number): Promise<ProductEntity>{
+    return await this.queryBus.execute(new GetProductByIdQuery(Number(id)));
   }
 }

@@ -20,7 +20,11 @@ export class ProductRepository implements IBaseRepository<ProductEntity, SearchP
 
     ){
         this.brand = dataSource.getRepository(BrandEntity);
-    }   
+    } 
+      
+    findById(id: number): Promise<ProductEntity> {
+        return this.product.findOneBy({id});
+    }
 
     async insert(dto: ProductDto) {
         const countBrand = await this.brand.count({where:{id:dto.brandId}});

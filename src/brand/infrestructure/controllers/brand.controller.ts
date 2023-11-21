@@ -10,6 +10,7 @@ import { CreateBrandCommand } from 'src/brand/aplication/command/implementation/
 import { UpdateBrandCommand } from 'src/brand/aplication/command/implementation/update.brand.command';
 import { DeleteBrandCommand } from 'src/brand/aplication/command/implementation/delete.brand.command';
 import { GetBrandQuery } from 'src/brand/aplication/query/implementation/get.brand.query';
+import { GetBrandByIdQuery } from 'src/brand/aplication/query/implementation/get.brand.by.id.query';
 
 
 @ApiTags('Brand')
@@ -56,9 +57,19 @@ export class brandController {
   @Get()
   @UseGuards(ApiAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'get list product brand' })
+  @ApiOperation({ summary: 'get list  brand' })
   @ApiResponse({ status: 200, description: 'get list brand', type:[BrandEntity] })
   async getByDto(@Query() dto: SearchBrandDto, @Req() req: IApiRequest){
     return await this.queryBus.execute(new GetBrandQuery(dto, req.user.id));
+  }
+
+  @Get(":id")
+  @UseGuards(ApiAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'get brand  by id' })
+  @ApiResponse({ status: 200, description: 'brand', type: BrandEntity })
+  @ApiParam({ example: 3, name: "id" })
+  async getById(@Param("id") id: number){
+    return await this.queryBus.execute(new GetBrandByIdQuery(Number(id)));
   }
 }
