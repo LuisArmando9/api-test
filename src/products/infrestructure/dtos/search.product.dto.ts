@@ -29,11 +29,11 @@ export class SearchProductDto implements IPaginationOptions {
     @IsNumber()
     @IsNumberString()
 	@IsOptional()
-    limit: number | string;
+    limit: number;
 
     @ApiProperty({example: 1, required: false})
     @IsNumber()
     @IsNumberString()
 	@IsOptional()
-    page: number | string;
+    page: number;
 }

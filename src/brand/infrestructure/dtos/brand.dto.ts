@@ -13,8 +13,7 @@ export class BrandDto {
 	@IsOptional()
 	public name: string;
 
-	@ApiProperty({example: "enable|disable", required: false, type: BrandStatus})
-    @IsEnum(BrandStatus)
+	@ApiProperty({example: "enable|disable", required: false})
 	@IsOptional()
 	public status: BrandStatus;
 	

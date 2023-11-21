@@ -12,7 +12,7 @@ export class SearchBrandDto implements IPaginationOptions {
 	@IsOptional()
     name: string;
 
-	@ApiProperty({example: "enable|disable", required: false, type: BrandStatus})
+	@ApiProperty({example: "enable|disable", required: false})
     @IsEnum(BrandStatus)
 	@IsOptional()
     status: BrandStatus;
@@ -21,11 +21,11 @@ export class SearchBrandDto implements IPaginationOptions {
     @IsNumber()
     @IsNumberString()
 	@IsOptional()
-    limit: number | string;
+    limit: number;
 
     @ApiProperty({example: 1, required: false})
     @IsNumber()
     @IsNumberString()
 	@IsOptional()
-    page: number | string;
+    page: number;
 }

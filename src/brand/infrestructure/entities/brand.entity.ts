@@ -1,5 +1,6 @@
 import { ApiBaseEntity } from "src/core/auth/infrestructure/entities/base.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { ProductEntity } from "src/products/infrestructure/entities/product.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: "brand"})
 export class BrandEntity extends ApiBaseEntity

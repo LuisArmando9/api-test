@@ -1,5 +1,6 @@
+import { BrandEntity } from "src/brand/infrestructure/entities/brand.entity";
 import { ApiBaseEntity } from "src/core/auth/infrestructure/entities/base.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: "products"})
 export class ProductEntity extends ApiBaseEntity
@@ -16,5 +17,5 @@ export class ProductEntity extends ApiBaseEntity
 	public description: string;
 
     @Column({ type:"integer"})
-	public brandid: number;
+	public brandId: number;
 }

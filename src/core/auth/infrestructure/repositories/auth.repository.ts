@@ -17,7 +17,9 @@ export class UserRepository {
     async insert(dto: UserDto) {
         const exists = await this.existsByEmail(dto.email);
         if (exists) throw new AlreadyEmailExistsException();
-        return await this.user.save(this.user.create(dto));
+        const user = await this.user.save(this.user.create(dto));
+        delete user.password;
+        return user;
     }
 
 
