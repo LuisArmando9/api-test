@@ -18,7 +18,7 @@ import { GetProductByIdQuery } from 'src/products/aplication/query/implementatio
 @ApiProduces('Application/json')
 @Controller("products")
 export class ProductController {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+  constructor(private readonly command_bus: CommandBus, private readonly query_bus: QueryBus) {}
 
   @Post("create")
   @ApiBearerAuth()
@@ -26,8 +26,8 @@ export class ProductController {
   @ApiOperation({ summary: 'Create Product' })
   @ApiResponse({ status: 200, description: 'Create Product', type: ProductEntity })
   async create(@Body() dto: ProductDto, @Req() req: IApiRequest){
-    dto.userId = req.user.id;
-    return await this.commandBus.execute(new CreateProductCommand(dto))
+    dto.user_id = req.user.id;
+    return await this.command_bus.execute(new CreateProductCommand(dto))
   }
 
   @Put(":id")
@@ -37,9 +37,9 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'Update Product', type: ProductEntity})
   @ApiParam({ example: 3, name: "id" })
   async update(@Body() dto: ProductDto, @Param("id") id: number, @Req() req: IApiRequest){
-    dto.userId = req.user.id;
+    dto.user_id = req.user.id;
     dto.id = id;
-    return await this.commandBus.execute(new UpdateProductCommand(dto))
+    return await this.command_bus.execute(new UpdateProductCommand(dto))
   }
 
 
@@ -51,7 +51,7 @@ export class ProductController {
   @ApiParam({ example: 3, name: "id" })
   async delete(@Param("id") id: number, @Req() req: IApiRequest){
 
-    return await this.commandBus.execute(new DeleteProductCommand(Number(id), req.user.id));
+    return await this.command_bus.execute(new DeleteProductCommand(Number(id), req.user.id));
   }
 
   @Get()
@@ -60,7 +60,7 @@ export class ProductController {
   @ApiOperation({ summary: 'get list  Products' })
   @ApiResponse({ status: 200, type:[ProductEntity] })
   async getByDto(@Query() dto: SearchProductDto, @Req() req: IApiRequest){
-    return await this.queryBus.execute(new GetProductByDtoQuery(dto, req.user.id));
+    return await this.query_bus.execute(new GetProductByDtoQuery(dto, req.user.id));
   }
 
   @Get(":id")
@@ -70,6 +70,6 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'product', type:ProductEntity })
   @ApiParam({ example: 3, name: "id" })
   async getById(@Param("id") id: number): Promise<ProductEntity>{
-    return await this.queryBus.execute(new GetProductByIdQuery(Number(id)));
+    return await this.query_bus.execute(new GetProductByIdQuery(Number(id)));
   }
 }

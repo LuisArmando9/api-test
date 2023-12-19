@@ -5,8 +5,8 @@ import { UpdateProductCommand } from '../implementation/update-product-command';
 
 @CommandHandler(UpdateProductCommand)
 export class UpdateProductHandler implements ICommandHandler<UpdateProductCommand> {
-    constructor(private readonly productService: ProductService){}
+    constructor(private readonly product_service: ProductService){}
     async execute(command: UpdateProductCommand){
-       return await this.productService.update(command.dto);
+       return await this.product_service.update(command.dto);
     }
 }

@@ -5,8 +5,8 @@ import { BrandService } from 'src/brand/domain/services/brand-service';
 
 @CommandHandler(DeleteBrandCommand)
 export class DeleteBrandHandler implements ICommandHandler<DeleteBrandCommand> {
-    constructor(private readonly brandService: BrandService){}
+    constructor(private readonly brand_service: BrandService){}
     async execute(command: DeleteBrandCommand){
-        return await this.brandService.softDelete(command.id, command.userId)
+        return await this.brand_service.softDelete(command.id, command.user_id)
     }
 }

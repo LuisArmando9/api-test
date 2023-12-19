@@ -27,7 +27,7 @@ export class ProductRepository implements IBaseRepository<ProductEntity, SearchP
     }
 
     async insert(dto: ProductDto) {
-        const countBrand = await this.brand.count({where:{id:dto.brandId}});
+        const countBrand = await this.brand.count({where:{id:dto.brand_id}});
         if (countBrand <= 0) throw new NotFoundException("Not found brand");
         const entity = this.product.create(dto);
         return this.product.save(entity);
@@ -37,9 +37,9 @@ export class ProductRepository implements IBaseRepository<ProductEntity, SearchP
         const exists = await this.existsById(dto.id);
         if (exists) {
             const productId = dto.id;
-            delete dto.brandId;
+            delete dto.brand_id;
             delete dto.id;
-            delete dto.userId;
+            delete dto.user_id;
             await this.product.update(productId, dto);
             return dto;
         }

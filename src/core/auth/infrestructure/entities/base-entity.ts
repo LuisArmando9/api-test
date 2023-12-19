@@ -8,22 +8,22 @@ export abstract class ApiBaseEntity
 	public id: number;
 
     @CreateDateColumn()
-	public createdAt: Date;
+	public created_at: Date;
 
     @UpdateDateColumn()
-	public updatedAt: Date;
+	public updated_at: Date;
     
     @DeleteDateColumn()
-	public deletedAt: Date;
+	public deleted_at: Date;
 
     @BeforeInsert()
     private async setDates(): Promise<void> {
-      this.createdAt = new Date();
-      this.updatedAt = new Date();
+      this.created_at = new Date();
+      this.updated_at = new Date();
     }
     
     @BeforeUpdate()
     private async updateDates(): Promise<void> {
-      this.updatedAt = new Date();
+      this.updated_at = new Date();
     }
 }

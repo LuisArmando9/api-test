@@ -12,12 +12,15 @@ import { BrandEntity } from 'src/brand/infrestructure/entities/brand-entity';
 @Injectable()
 export class BrandService extends BaseRepository<BrandEntity, SearchBrandDto, BrandDto > {
     constructor(
-        private brandRepository: BrandRepository,
-        private logRepository: UserLogRepository
+        private brand_repository: BrandRepository,
+        private log_repository: UserLogRepository
     ) {
-        super(logRepository, brandRepository, UserBrandAction, {
-            invalidData: new InvalidBranDataException(),
-            notFound: new BrandNotFoundException()
+        super(
+            log_repository, 
+            brand_repository, 
+            UserBrandAction, {
+            invalid_data: new InvalidBranDataException(),
+            not_found: new BrandNotFoundException()
         });
     }
     

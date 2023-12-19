@@ -5,8 +5,8 @@ import { BrandService } from 'src/brand/domain/services/brand-service';
 
 @CommandHandler(UpdateBrandCommand)
 export class UpdateBrandHandler implements ICommandHandler<UpdateBrandCommand> {
-    constructor(private readonly brandService: BrandService){}
+    constructor(private readonly brand_service: BrandService){}
     async execute(command: UpdateBrandCommand){
-       return await this.brandService.update(command.dto);
+       return await this.brand_service.update(command.dto);
     }
 }

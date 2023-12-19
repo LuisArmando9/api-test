@@ -27,10 +27,10 @@ export class BrandRepository implements IBaseRepository<BrandEntity, SearchBrand
     async update(dto: BrandDto) {
         const exists = await this.existsById(dto.id);
         if (exists) {
-            const brandId = dto.id;
+            const brand_id = dto.id;
             delete dto.id;
-            delete dto.userId;
-            await this.brand.update(brandId, dto);
+            delete dto.user_id;
+            await this.brand.update(brand_id, dto);
             return dto;
         }
         throw new BrandNotFoundException()

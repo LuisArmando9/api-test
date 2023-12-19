@@ -4,9 +4,9 @@ import { GetBrandQuery } from "../implementation/get.brand.query";
 
 @QueryHandler(GetBrandQuery)
 export class GetBrandHandler implements IQueryHandler<GetBrandQuery> {
-  constructor(private readonly brandService: BrandService) {}
+  constructor(private readonly brand_service: BrandService) {}
 
   public async execute(command: GetBrandQuery) {
-    return await this.brandService.getByDto(command.dto, command.userId);
+    return await this.brand_service.getByDto(command.dto, command.user_id);
   }
 }

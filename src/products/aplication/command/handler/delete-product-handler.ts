@@ -7,8 +7,8 @@ import { DeleteProductCommand } from '../implementation/delete-product-command';
 
 @CommandHandler(DeleteProductCommand)
 export class DeleteProductHandler implements ICommandHandler<DeleteProductCommand> {
-    constructor(private readonly productService: ProductService){}
+    constructor(private readonly product_service: ProductService){}
     async execute(command: DeleteProductCommand){
-        return await this.productService.softDelete(command.id, command.userId)
+        return await this.product_service.softDelete(command.id, command.user_id)
     }
 }

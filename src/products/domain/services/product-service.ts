@@ -12,12 +12,15 @@ import { ProductEntity } from 'src/products/infrestructure/entities/product-enti
 @Injectable()
 export class ProductService extends BaseRepository<ProductEntity, SearchProductDto, ProductDto > {
     constructor(
-        private productRepository: ProductRepository,
-        private logRepository: UserLogRepository
+        private product_repository: ProductRepository,
+        private log_repository: UserLogRepository
     ) { 
-        super(logRepository, productRepository, UserProductAction, {
-            invalidData: new InvalidInfoException(),
-            notFound: new ProductNotFoundException()
+        super(
+            log_repository, 
+            product_repository, 
+            UserProductAction, {
+            invalid_data: new InvalidInfoException(),
+            not_found: new ProductNotFoundException()
         });
 
     }

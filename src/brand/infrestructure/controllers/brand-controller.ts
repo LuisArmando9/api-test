@@ -18,7 +18,7 @@ import { GetBrandByIdQuery } from 'src/brand/aplication/query/implementation/get
 @ApiProduces('Application/json')
 @Controller("brand")
 export class brandController {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+  constructor(private readonly command_bus: CommandBus, private readonly query_bus: QueryBus) {}
 
   @Post("create")
   @ApiBearerAuth()
@@ -26,8 +26,8 @@ export class brandController {
   @ApiOperation({ summary: 'Create brand' })
   @ApiResponse({ status: 200, description: 'Create brand', type: BrandEntity })
   async create(@Body() dto: BrandDto, @Req() req: IApiRequest){
-    dto.userId = req.user.id;
-    return await this.commandBus.execute(new CreateBrandCommand(dto))
+    dto.user_id = req.user.id;
+    return await this.command_bus.execute(new CreateBrandCommand(dto))
   }
 
   @Put(":id")
@@ -37,9 +37,9 @@ export class brandController {
   @ApiResponse({ status: 200, description: 'Update brand', type: BrandEntity})
   @ApiParam({ example: 3, name: "id" })
   async update(@Body() dto: BrandDto, @Param("id") id: number, @Req() req: IApiRequest){
-    dto.userId = req.user.id;
+    dto.user_id = req.user.id;
     dto.id = id;
-    return await this.commandBus.execute(new UpdateBrandCommand(dto))
+    return await this.command_bus.execute(new UpdateBrandCommand(dto))
   }
 
 
@@ -51,7 +51,7 @@ export class brandController {
   @ApiParam({ example: 3, name: "id" })
   async delete(@Param("id") id: number, @Req() req: IApiRequest){
 
-    return await this.commandBus.execute(new DeleteBrandCommand(id, req.user.id));
+    return await this.command_bus.execute(new DeleteBrandCommand(id, req.user.id));
   }
 
   @Get()
@@ -60,7 +60,7 @@ export class brandController {
   @ApiOperation({ summary: 'get list  brand' })
   @ApiResponse({ status: 200, description: 'get list brand', type:[BrandEntity] })
   async getByDto(@Query() dto: SearchBrandDto, @Req() req: IApiRequest){
-    return await this.queryBus.execute(new GetBrandQuery(dto, req.user.id));
+    return await this.query_bus.execute(new GetBrandQuery(dto, req.user.id));
   }
 
   @Get(":id")
@@ -70,6 +70,6 @@ export class brandController {
   @ApiResponse({ status: 200, description: 'brand', type: BrandEntity })
   @ApiParam({ example: 3, name: "id" })
   async getById(@Param("id") id: number){
-    return await this.queryBus.execute(new GetBrandByIdQuery(Number(id)));
+    return await this.query_bus.execute(new GetBrandByIdQuery(Number(id)));
   }
 }

@@ -22,5 +22,5 @@ export class BrandDto {
 	@IsOptional()
 	public description: string;
 
-	public userId: number;
+	public user_id: number;
 }

@@ -17,5 +17,5 @@ export class ProductEntity extends ApiBaseEntity
 	public description: string;
 
     @Column({ type:"integer"})
-	public brandId: number;
+	public brand_id: number;
 }

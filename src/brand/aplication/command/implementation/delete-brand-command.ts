@@ -3,5 +3,5 @@ import { ProductDto } from 'src/products/infrestructure/dtos/product-dto';
 
 
 export class DeleteBrandCommand implements ICommand {
-  constructor(readonly id: number, readonly userId: number) {}
+  constructor(readonly id: number, readonly user_id: number) {}
 }

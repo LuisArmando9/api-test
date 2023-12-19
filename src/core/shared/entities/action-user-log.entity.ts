@@ -9,5 +9,5 @@ export class UserLogEntity extends ApiBaseEntity
 	public action: string;
 
     @Column({ type:"integer"})
-	public userId: number;
+	public user_id: number;
 }

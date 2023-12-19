@@ -5,9 +5,9 @@ import { GetProductByIdQuery } from "../implementation/get-product-by-id.query";
 
 @QueryHandler(GetProductByIdQuery)
 export class GetProductByIdHandler implements IQueryHandler<GetProductByIdQuery> {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly product_service: ProductService) {}
 
   public async execute(command: GetProductByIdQuery) {
-    return await this.productService.getById(command.id);
+    return await this.product_service.getById(command.id);
   }
 }

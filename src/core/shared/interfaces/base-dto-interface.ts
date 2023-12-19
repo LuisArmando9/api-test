@@ -1,3 +1,3 @@
 export interface IBaseDto {
-    userId: number;
+    user_id: number;
 }

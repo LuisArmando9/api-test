@@ -15,20 +15,20 @@ import { InvalidPasswordException, UserNotFoundException } from '../exceptions/u
 @Injectable()
 export class AuthService {
     constructor(
-        private userRepository: UserRepository,
-        private jwtService: JwtService
+        private user_repository: UserRepository,
+        private jwt_service: JwtService
     ) { }
 
     async insert(dto: UserDto) {
-        return this.userRepository.insert(dto)
+        return this.user_repository.insert(dto)
     }
     
     async login(dto: UserDto) {
-        const user = await this.userRepository.findByEmail(dto.email);
+        const user = await this.user_repository.findByEmail(dto.email);
         if (!user) throw new UserNotFoundException();
         if (!user.isValidPassword(dto.password))  throw new InvalidPasswordException();
         return {
-            jwtToken: this.jwtService.sign({
+            jwtToken: this.jwt_service.sign({
                 email: user.email,
                 id:user.id
             })

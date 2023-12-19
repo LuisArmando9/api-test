@@ -7,9 +7,9 @@ import { UserLogRepository } from "./user-log-repository";
 export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     
     constructor(
-        private _logRepository: UserLogRepository,
+        private _log_repository: UserLogRepository,
         private repository:  IBaseRepository<Entity, SearchDto, BaseDto>,
-        private readonly logTypeAction: ACTION_TYPE_LOG,
+        private readonly log_type_action: ACTION_TYPE_LOG,
         private readonly exceptions: IThrowExceptionBase
     ){
 
@@ -20,9 +20,9 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @param userId 
      * @param action 
      */
-    async saveLog(userId: number, action: LOG_ACTION) {
-        await this._logRepository.insert({
-            userId,
+    async saveLog(user_id: number, action: LOG_ACTION) {
+        await this._log_repository.insert({
+            user_id,
             action,
         })
     }
@@ -34,10 +34,10 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async insert(dto: BaseDto) {
         const entity = await this.repository.insert(dto);
         if (entity) {
-            await this.saveLog(dto.userId, this.logTypeAction.INSERT)
+            await this.saveLog(dto.user_id, this.log_type_action.INSERT)
             return entity;
         }
-        throw this.exceptions.invalidData;
+        throw this.exceptions.invalid_data;
     }
 
     /**
@@ -48,7 +48,7 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async update(dto: BaseDto) {
         const entity = await this.repository.update(dto);
         if (entity) {
-            await this.saveLog(dto.userId, this.logTypeAction.UPDATE)
+            await this.saveLog(dto.user_id, this.log_type_action.UPDATE)
             return entity;
         }
     }
@@ -61,10 +61,10 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async softDelete(id: number, userId: number){
         const exists = await this.repository.existsById(id);
         if (!exists) {
-            throw  this.exceptions.notFound;
+            throw  this.exceptions.not_found;
         }
         await Promise.all([
-            this.saveLog(userId, this.logTypeAction.DELETE),
+            this.saveLog(userId, this.log_type_action.DELETE),
             this.repository.softDelete(id)
         ]);
         
@@ -76,7 +76,7 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @returns 
      */
     async getByDto(dto: SearchDto, userId: number) {
-        await this.saveLog(userId, this.logTypeAction.GET_BY_DTO);
+        await this.saveLog(userId, this.log_type_action.GET_BY_DTO);
         return this.repository.findByDto(dto);
     }
     
@@ -85,9 +85,9 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @param id 
      * @returns 
      */
-    async getById( id: number ) {
+    async getById( id: number) {
         const  entity = await this.repository.findById(id);
-        if (!entity) throw this.exceptions.notFound;
+        if (!entity) throw this.exceptions.not_found;
         return entity;
     }
 

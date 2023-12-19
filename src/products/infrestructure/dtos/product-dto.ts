@@ -27,12 +27,12 @@ export class ProductDto {
 	@ApiProperty({example: 2})
 	@IsString()
 	@IsOptional()
-	public brandId: number;
+	public brand_id: number;
 	
 	@ApiProperty({example: "its deliciuos"})
 	@IsString()
 	@IsOptional()
 	public description: string;
 
-	public userId: number;
+	public user_id: number;
 }

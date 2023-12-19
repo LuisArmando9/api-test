@@ -5,9 +5,9 @@ import { AuthService } from "src/core/auth/domain/services/auth-service";
 
 @QueryHandler(LoginQuery)
 export class LoginQueryHandler implements IQueryHandler<LoginQuery> {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly auth_service: AuthService) {}
 
   public async execute(command: LoginQuery) {
-    return await this.authService.login(command.dto);
+    return await this.auth_service.login(command.dto);
   }
 }

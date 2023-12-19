@@ -11,21 +11,20 @@ import { LoginQuery } from '../../application/query/implementation/login-query';
 @ApiProduces('Application/json')
 @Controller("auth")
 export class AuthController {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+  constructor(private readonly command_bus: CommandBus, private readonly query_bus: QueryBus) {}
 
   @Post("create")
-  //@ApiBearerAuth()
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 200, description: 'Create user', type: UserEntity })
   async create(@Body() dto: UserDto){
-    return await this.commandBus.execute(new CreateUserCommand(dto))
+    return await this.command_bus.execute(new CreateUserCommand(dto))
   }
 
   @Post("login")
   @ApiOperation({ summary: 'login' })
   @ApiResponse({ status: 200, description: 'login'})
   async update(@Body() dto: UserDto){
-    return await this.queryBus.execute(new LoginQuery(dto))
+    return await this.query_bus.execute(new LoginQuery(dto))
   }
 
 }
