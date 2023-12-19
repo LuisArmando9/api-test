@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { BrandService } from "src/brand/domain/services/brand.service";
+import { BrandService } from "src/brand/domain/services/brand-service";
 import { GetBrandByIdQuery } from "../implementation/get.brand.by.id.query";
 
 @QueryHandler(GetBrandByIdQuery)
