@@ -3,9 +3,9 @@ CREATE TABLE "users" (
   "username" varchar,
   "email" varchar,
   "password" varchar,
-  "createdAt" timestamp,
-  "updatedAt" timestamp,
-  "deletedAt" timestamp
+  "created_at" timestamp,
+  "updated_at" timestamp,
+  "deleted_at" timestamp
 );
 
 CREATE TABLE "products" (
@@ -15,7 +15,7 @@ CREATE TABLE "products" (
   "price" integer,
   "status" varchar,
   "description" text,
-  "brandId" integer,
+  "brand_id" integer,
   "created_at" timestamp,
   "updated_at" timestamp,
   "deleted_at" timestamp
@@ -26,18 +26,18 @@ CREATE TABLE "brand" (
   "name" varchar,
   "status" enum,
   "description" text,
-    "createdAt" timestamp,
-  "updatedAt" timestamp,
-  "deletedAt" timestamp
+  "created_at" timestamp,
+  "updated_at" timestamp,
+  "deleted_at" timestamp
 );
 
 CREATE TABLE "action_user_logs" (
   "id" SERIAL PRIMARY KEY,
   "action" varchar,
-  "userId" integer,
-  "createdAt" timestamp,
-  "updatedAt" timestamp,
-  "deletedAt" timestamp
+  "user_id" integer,
+  "created_at" timestamp,
+  "updated_at" timestamp,
+  "deleted_at" timestamp
 );
 
 COMMENT ON COLUMN "products"."code" IS 'Content of the code';
@@ -46,6 +46,6 @@ COMMENT ON COLUMN "products"."description" IS 'Content of the code';
 
 COMMENT ON COLUMN "brand"."description" IS 'Content of the code';
 
-ALTER TABLE "action_user_logs" ADD FOREIGN KEY ("userId") REFERENCES "users" ("id");
+ALTER TABLE "action_user_logs" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "products" ADD FOREIGN KEY ("brandId") REFERENCES "brand" ("id");
+ALTER TABLE "products" ADD FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
