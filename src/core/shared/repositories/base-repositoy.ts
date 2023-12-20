@@ -1,4 +1,5 @@
 import { ACTION_TYPE_LOG, LOG_ACTION, UserBrandAction } from "../enums/user-action-enum";
+import { IActionUserSave } from "../interfaces/action-user-save.interface";
 import { IBaseDto } from "../interfaces/base-dto-interface";
 import { IBaseRepository } from "../interfaces/base-repository-interface";
 import { IThrowExceptionBase } from "../interfaces/exception-base-interface";
@@ -20,11 +21,8 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @param userId 
      * @param action 
      */
-    async saveLog(user_id: number, action: LOG_ACTION) {
-        await this._log_repository.insert({
-            user_id,
-            action,
-        })
+    async saveLog(action: IActionUserSave) {
+        await this._log_repository.insert(action)
     }
 
     /**
@@ -34,7 +32,11 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async insert(dto: BaseDto) {
         const entity = await this.repository.insert(dto);
         if (entity) {
-            await this.saveLog(dto.user_id, this.log_type_action.INSERT)
+            await this.saveLog({
+                user_id:dto.user_id,
+                action:this.log_type_action.INSERT,
+                after_data:dto
+            })
             return entity;
         }
         throw this.exceptions.invalid_data;
@@ -48,8 +50,13 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
     async update(dto: BaseDto) {
         const entity = await this.repository.update(dto);
         if (entity) {
-            await this.saveLog(dto.user_id, this.log_type_action.UPDATE)
-            return entity;
+            await this.saveLog({
+                user_id: dto.user_id,
+                before_data:entity,
+                after_data:dto,
+                action: this.log_type_action.UPDATE
+            })
+            return dto;
         }
     }
 
@@ -58,13 +65,17 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @param id 
      * @param userId 
      */
-    async softDelete(id: number, userId: number){
+    async softDelete(id: number, user_id: number){
         const exists = await this.repository.existsById(id);
         if (!exists) {
             throw  this.exceptions.not_found;
         }
         await Promise.all([
-            this.saveLog(userId, this.log_type_action.DELETE),
+            this.saveLog({
+                user_id,
+                action:this.log_type_action.DELETE,
+                after_data:{id}
+            }),
             this.repository.softDelete(id)
         ]);
         
@@ -75,8 +86,12 @@ export class BaseRepository<Entity, SearchDto, BaseDto extends IBaseDto> {
      * @param userId 
      * @returns 
      */
-    async getByDto(dto: SearchDto, userId: number) {
-        await this.saveLog(userId, this.log_type_action.GET_BY_DTO);
+    async getByDto(dto: SearchDto, user_id: number) {
+        await this.saveLog({
+            user_id,
+            action:this.log_type_action.GET_BY_DTO,
+            after_data:dto
+        });
         return this.repository.findByDto(dto);
     }
     

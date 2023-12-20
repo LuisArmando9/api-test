@@ -12,6 +12,8 @@ import { GetBrandHandler } from './aplication/query/handler/get.brand.query.hand
 import { DeleteBrandHandler } from './aplication/command/handler/delete-brand-handler';
 import { BrandRepository } from './infrestructure/repositories/brand-repository';
 import { GetBrandByIdHandler } from './aplication/query/handler/get.brand.by.id.query.handler';
+import { GetBrandView } from 'src/core/shared/views/branch-views';
+import { GetLogView } from 'src/core/shared/views/log-views';
 const commands = [
     UpdateBrandHandler,
     CreateBrandHandler,
@@ -24,7 +26,7 @@ const queries = [
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([BrandEntity, UserLogEntity])
+    TypeOrmModule.forFeature([BrandEntity, UserLogEntity, GetBrandView, GetLogView])
   ],
   controllers: [brandController],
   providers: [

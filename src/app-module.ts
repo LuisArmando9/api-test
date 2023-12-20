@@ -11,16 +11,26 @@ import { AuthModule } from './core/auth/auth-module';
 import { BrandEntity } from './brand/infrestructure/entities/brand-entity';
 import { BrandModule } from './brand/brand-module';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { GetBrandView } from './core/shared/views/branch-views';
+import { GetLogView } from './core/shared/views/log-views';
+import { GetProductView } from './core/shared/views/produc-views';
+import { GetUserView } from './core/shared/views/user-views';
+import { LogModule } from './log/log-module';
 const Modules = [
   ProductModule,
   AuthModule,
-  BrandModule
+  BrandModule,
+  LogModule
 ];
 const entities = [
   ProductEntity,
   UserEntity,
   UserLogEntity,
-  BrandEntity
+  BrandEntity,
+  GetBrandView,
+  GetLogView,
+  GetProductView,
+  GetUserView
 ];
 @Module({
   imports: [

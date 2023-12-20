@@ -18,12 +18,22 @@ export class SearchProductDto implements IPaginationOptions {
 	@ApiProperty({example: new Date(), required: false})
     @IsDateString()
 	@IsOptional()
-    updated: string;
+    start_updated: string;
+
+    @ApiProperty({example: new Date(), required: false})
+    @IsDateString()
+	@IsOptional()
+    end_updated: string;
     
 	@ApiProperty({example: new Date(), required: false})
     @IsDateString()
 	@IsOptional()
-    created: Date;
+    start_created: Date;
+
+    @ApiProperty({example: new Date(), required: false})
+    @IsDateString()
+	@IsOptional()
+    end_created: Date;
 
     @ApiProperty({example: 1, required: false})
     @IsNumber()

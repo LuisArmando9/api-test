@@ -10,4 +10,10 @@ export class UserLogEntity extends ApiBaseEntity
 
     @Column({ type:"integer"})
 	public user_id: number;
+
+    @Column({ type:"json"})
+    public after_data: any;
+    
+    @Column({ type:"json"})
+    public before_data: any;
 }

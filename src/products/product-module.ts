@@ -12,6 +12,8 @@ import { DeleteProductHandler } from './aplication/command/handler/delete-produc
 import { UpdateProductHandler } from './aplication/command/handler/update-product-handler';
 import { GetProductsHandler } from './aplication/query/handler/get-product-query-handler';
 import { GetProductByIdHandler } from './aplication/query/handler/get-product-by-id-query.';
+import { GetProductView } from 'src/core/shared/views/produc-views';
+import { GetLogView } from 'src/core/shared/views/log-views';
 const commands = [
     UpdateProductHandler,
     CreateProductHandler,
@@ -24,7 +26,7 @@ const queries = [
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductEntity, UserLogEntity])
+    TypeOrmModule.forFeature([ProductEntity, UserLogEntity, GetProductView, GetLogView])
   ],
   controllers: [ProductController],
   providers: [ProductService, 

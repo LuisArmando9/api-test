@@ -5,13 +5,16 @@ import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { UserEntity } from '../entities/user-entity';
 import { UserDto } from '../dto/user-dto';
 import { AlreadyEmailExistsException } from '../../domain/exceptions/user-exceptions';
+import { GetUserView } from 'src/core/shared/views/user-views';
 
 
 
 export class UserRepository {
     constructor(
     @InjectRepository(UserEntity) 
-    private readonly user: Repository<UserEntity>
+    private readonly user: Repository<UserEntity>,
+    @InjectRepository(GetUserView) 
+    private readonly userView: Repository<GetUserView>
     ){}
 
     async insert(dto: UserDto) {
@@ -24,11 +27,11 @@ export class UserRepository {
 
 
     findByEmail(email: string) {
-      return this.user.findOne({where:{email}})
+      return this.userView.findOne({where:{email}})
     }
 
     async existsByEmail(email: string) {
-        const count = await this.user.count({where:{email}});
+        const count = await this.userView.count({where:{email}});
         return count > 0;
     }
 

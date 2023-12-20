@@ -25,7 +25,7 @@ export class ProductDto {
 	public status: any;
 
 	@ApiProperty({example: 2})
-	@IsString()
+	@IsNumber()
 	@IsOptional()
 	public brand_id: number;
 	

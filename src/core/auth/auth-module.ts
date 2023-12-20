@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { CONFIG_NAME, ConfigVars, Vars } from 'src/config';
 import { PassportModule } from '@nestjs/passport';
 import { AuthStrategy } from './domain/strategies/auth-jwt-strategy';
+import { GetUserView } from '../shared/views/user-views';
 const commands = [
     CreateUserHandler
 ];
@@ -22,7 +23,7 @@ const queries = [
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, GetUserView]),
     PassportModule.register( { defaultStrategy: 'jwt', session: true } ),
     JwtModule.registerAsync( {
       useFactory: ( vars: ConfigVars ) => ( {

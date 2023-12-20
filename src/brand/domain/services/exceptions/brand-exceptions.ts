@@ -12,3 +12,9 @@ export class InvalidBranDataException extends BadRequestException {
         super("Does not insert brand, validate info")
     }
 }
+
+export class DisableBranchException extends BadRequestException {
+    constructor(){
+        super("the brand is disabled")
+    }
+}
