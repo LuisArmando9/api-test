@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiAuthGuard } from 'src/core/auth/domain/guards/auth-guard';
 import { IApiRequest } from 'src/core/shared/interfaces/request-interface';
-import { Sale } from '../entities/Sale-entity';
+import { Sale } from '../entities/sale-entity';
 import { SalesService } from '../sale-service';
 import { CreateSaleDto } from '../dto/create-sale-dto';
 import { UpdateSaleDto } from '../dto/update-sale-dto';

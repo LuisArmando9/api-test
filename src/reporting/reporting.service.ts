@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SearchLogDto } from './dto/search-log-dto';
 import { isNotEmpty } from 'class-validator';
-import { UserNotFoundException } from 'src/core/auth/domain/exceptions/user-exceptions';
 import { QueryBuilderParamHelper } from 'src/core/shared/helpers/builder-helper';
 import { ViewProductInventory } from 'src/core/shared/views/product-inventory-view';
 import { SearchProductInventoryDto } from './dto/search-product-inventory.dto';

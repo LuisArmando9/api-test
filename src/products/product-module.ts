@@ -18,6 +18,7 @@ import { GetBrandView } from 'src/core/shared/views/branch-views';
 import { FileService } from 'src/core/shared/services/file-service';
 import { CloudinaryModule, CloudinaryService } from 'nestjs-cloudinary';
 import { GetUserView } from 'src/core/shared/views/user-views';
+import { ConfigVars, Vars } from 'src/config';
 const commands = [
     UpdateProductHandler,
     CreateProductHandler,
@@ -38,10 +39,10 @@ const queries = [
       GetBrandView,
       GetUserView
     ]),
-    CloudinaryModule.forRoot({
-      cloud_name: 'dnzupivab', 
-      api_key: '632683623511466', 
-      api_secret: 'pZm28wjHwpOXgPJXApV8TNBAm8A' 
+    CloudinaryModule.forRootAsync({
+      useFactory:({ cloudinary }: ConfigVars) => cloudinary,
+      inject: [Vars.KEY],
+
     })
   ],
   controllers: [ProductController],

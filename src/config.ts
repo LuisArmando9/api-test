@@ -14,6 +14,11 @@ export const Vars = registerAs(CONFIG_NAME, () =>
     },
     jwt: {
       password: process.env.JWT_PASSWORD
+    },
+    cloudinary:{
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+      api_key: process.env.CLOUDINARY_API_KEY, 
+      api_secret: process.env.CLOUDINARY_API_SECRET
     }
   }),
 );
