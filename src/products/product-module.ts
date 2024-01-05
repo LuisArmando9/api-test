@@ -14,6 +14,10 @@ import { GetProductsHandler } from './aplication/query/handler/get-product-query
 import { GetProductByIdHandler } from './aplication/query/handler/get-product-by-id-query.';
 import { GetProductView } from 'src/core/shared/views/produc-views';
 import { GetLogView } from 'src/core/shared/views/log-views';
+import { GetBrandView } from 'src/core/shared/views/branch-views';
+import { FileService } from 'src/core/shared/services/file-service';
+import { CloudinaryModule, CloudinaryService } from 'nestjs-cloudinary';
+import { GetUserView } from 'src/core/shared/views/user-views';
 const commands = [
     UpdateProductHandler,
     CreateProductHandler,
@@ -26,12 +30,26 @@ const queries = [
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductEntity, UserLogEntity, GetProductView, GetLogView])
+    TypeOrmModule.forFeature([
+      ProductEntity, 
+      UserLogEntity, 
+      GetProductView, 
+      GetLogView,
+      GetBrandView,
+      GetUserView
+    ]),
+    CloudinaryModule.forRoot({
+      cloud_name: 'dnzupivab', 
+      api_key: '632683623511466', 
+      api_secret: 'pZm28wjHwpOXgPJXApV8TNBAm8A' 
+    })
   ],
   controllers: [ProductController],
-  providers: [ProductService, 
-    UserLogRepository, 
+  providers: [
+    FileService,
     ProductRepository,
+    ProductService, 
+    UserLogRepository,
     CommandBus,
     QueryBus,
     ...commands,

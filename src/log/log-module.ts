@@ -9,6 +9,7 @@ import { GetLogView } from 'src/core/shared/views/log-views';
 import { LogController } from './infrestructure/controllers/log-controller';
 import { GetLogByIdQuery } from './aplication/query/implementation/get.log.by.id.query';
 import { LogService } from './domain/services/log-service';
+import { GetUserView } from 'src/core/shared/views/user-views';
 
 const queries = [
   GetLogByIdHandler
@@ -16,9 +17,8 @@ const queries = [
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ GetBrandView, GetLogView, UserLogEntity])
+    TypeOrmModule.forFeature([ GetBrandView, GetLogView, UserLogEntity, GetUserView])
   ],
-  controllers: [LogController],
   providers: [
     UserLogRepository, 
     LogService,

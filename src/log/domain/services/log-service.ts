@@ -8,8 +8,8 @@ export class LogService {
         private readonly log_repository: UserLogRepository
     ) {
     }
-    getByUserId(id: number){
-        return this.log_repository.getByUserId(id)
+    getByUserIdAndType(id: number, type: string){
+        return this.log_repository.getByUserIdAndType(id, type)
     }
     
 

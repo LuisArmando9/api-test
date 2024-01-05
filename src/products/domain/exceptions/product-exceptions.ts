@@ -12,3 +12,9 @@ export class InvalidInfoException extends BadRequestException {
         super("Does not insert product, validate info")
     }
 }
+export class AlreadyExistsCodeException extends BadRequestException {
+    constructor(){
+        super("Already exists code or sku of product")
+    }
+
+}

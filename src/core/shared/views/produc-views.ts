@@ -16,8 +16,22 @@ export class GetProductView {
   price: number;
 
   @ViewColumn()
+  image: number;
+
+  @ViewColumn()
+  brand_id: number;
+
+
+
+  @ViewColumn()
   status: string;
 
   @ViewColumn()
   description: string;
+
+  @ViewColumn()
+  updated_at: Date;
+
+  @ViewColumn()
+  created_at: Date;
 }

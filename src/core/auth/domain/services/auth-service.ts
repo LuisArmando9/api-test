@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { UserRepository } from '../../infrestructure/repositories/auth-repository';
-import {  UserDto } from '../../infrestructure/dto/user-dto';
+import {  LoginDto, UserDto } from '../../infrestructure/dto/user-dto';
 import { JwtService } from '@nestjs/jwt';
 import { InvalidPasswordException, UserNotFoundException } from '../exceptions/user-exceptions';
 
@@ -18,7 +18,7 @@ export class AuthService {
         return this.user_repository.insert(dto)
     }
     
-    async login(dto: UserDto) {
+    async login(dto: LoginDto) {
         const user = await this.user_repository.findByEmail(dto.email);
         if (!user) throw new UserNotFoundException();
         if (!user.isValidPassword(dto.password))  throw new InvalidPasswordException();

@@ -8,6 +8,8 @@ export class GetLogByIdHandler implements IQueryHandler<GetLogByIdQuery> {
   constructor(private readonly log_service: LogService) {}
 
   public async execute(command: GetLogByIdQuery) {
-    return await this.log_service.getByUserId(command.id);
+    console.log("typeeeeeeeeeeeeeeeeeeeee")
+    console.log(command)
+    return await this.log_service.getByUserIdAndType(command.id, command.type);
   }
 }

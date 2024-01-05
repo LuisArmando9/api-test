@@ -12,6 +12,9 @@ export class UserEntity extends ApiBaseEntity
     @Column({ type:"varchar", length:500})
 	public password: string;
 
+    @Column({ type:"varchar", length:500})
+	public name: string;
+
     @BeforeInsert()
     private async hashPassword(): Promise<void> {
       this.password = await hash(this.password, 10);

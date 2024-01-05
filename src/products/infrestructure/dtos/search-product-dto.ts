@@ -4,7 +4,8 @@ import {
   
     IPaginationOptions,
   } from 'nestjs-typeorm-paginate';
-export class SearchProductDto implements IPaginationOptions {
+import { CommonSearchDto } from "src/core/shared/dto/common-dto";
+export class SearchProductDto extends CommonSearchDto {
     @ApiProperty({example: "coca cola", required: false})
     @IsString()
 	@IsOptional()
@@ -15,35 +16,8 @@ export class SearchProductDto implements IPaginationOptions {
 	@IsOptional()
     code: string;
 
-	@ApiProperty({example: new Date(), required: false})
-    @IsDateString()
-	@IsOptional()
-    start_updated: string;
-
-    @ApiProperty({example: new Date(), required: false})
-    @IsDateString()
-	@IsOptional()
-    end_updated: string;
-    
-	@ApiProperty({example: new Date(), required: false})
-    @IsDateString()
-	@IsOptional()
-    start_created: Date;
-
-    @ApiProperty({example: new Date(), required: false})
-    @IsDateString()
-	@IsOptional()
-    end_created: Date;
-
-    @ApiProperty({example: 1, required: false})
-    @IsNumber()
+    @ApiProperty({example: 2, required: false})
     @IsNumberString()
 	@IsOptional()
-    limit: number;
-
-    @ApiProperty({example: 1, required: false})
-    @IsNumber()
-    @IsNumberString()
-	@IsOptional()
-    page: number;
+    brand_id: number;
 }

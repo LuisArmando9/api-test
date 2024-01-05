@@ -9,12 +9,18 @@ export class ProductEntity extends ApiBaseEntity
 	public name: string;
     @Column({ type:"varchar", length:50})
 	public code: string;
+
     @Column({ type:"decimal"})
 	public price: number;
+
+    @Column({ type:"integer"})
+    public reorder_point: number;
     @Column({ type:"varchar", length:50})
 	public status: any;
     @Column({ type:"varchar", length:500})
 	public description: string;
+    @Column({ type:"varchar", length:500})
+    public image: string;
 
     @Column({ type:"integer"})
 	public brand_id: number;

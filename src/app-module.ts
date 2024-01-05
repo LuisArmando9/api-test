@@ -16,11 +16,39 @@ import { GetLogView } from './core/shared/views/log-views';
 import { GetProductView } from './core/shared/views/produc-views';
 import { GetUserView } from './core/shared/views/user-views';
 import { LogModule } from './log/log-module';
+import { SupplierModule } from './supplier/supplier-module';
+import { InventoryModule } from './inventory/inventory-module';
+import { Inventory } from './inventory/infrestructure/entities/inventory-entity';
+import { ViewInventory } from './core/shared/views/inventory-view';
+import { Supplier } from './supplier/infrestructure/entities/supplier-entity';
+import { ViewSupplier } from './core/shared/views/supplier-view';
+import { PaymentType } from './payment-type/infrestructure/entities/payment-type-entity';
+import { PaymentTypeModule } from './payment-type/payment-type-module';
+import { Shopping } from './shopping/infrestructure/entities/shopping-entity';
+import { SalesModule } from './sales/sale-module';
+import { Sale } from './sales/entities/sale-entity';
+import { SaleView } from './core/shared/views/sale-view';
+import { ViewShopping } from './core/shared/views/shopping-view';
+import { PaymentOrder } from './transactions/entities/payment-order.entity';
+import { PaymentTransaction } from './transactions/entities/payment-transactions.entity';
+import { ViewSoldCustomer } from './core/shared/views/view-sold';
+import { CloudinaryModule } from 'nestjs-cloudinary';
+import {v2 as cloudinary} from 'cloudinary';
+import { TransactionsModule } from './transactions/transactions.module';
+import { ShoppingModule } from './shopping/shopping-module';
+import { ReportingModule } from './reporting/reporting.module';
 const Modules = [
   ProductModule,
   AuthModule,
   BrandModule,
-  LogModule
+  LogModule,
+  SupplierModule,
+  InventoryModule,
+  PaymentTypeModule,
+  SalesModule,
+  TransactionsModule,
+  ShoppingModule,
+  ReportingModule
 ];
 const entities = [
   ProductEntity,
@@ -30,8 +58,25 @@ const entities = [
   GetBrandView,
   GetLogView,
   GetProductView,
-  GetUserView
+  GetUserView,
+  Inventory,
+  ViewInventory,
+  Supplier,
+  ViewSupplier,
+  PaymentType,
+  Shopping,
+  ViewShopping,
+  Sale,
+  SaleView,
+  PaymentOrder,
+  PaymentTransaction,
+  ViewSoldCustomer,
+  Shopping
 ];
+
+          
+
+
 @Module({
   imports: [
     DevtoolsModule.register({

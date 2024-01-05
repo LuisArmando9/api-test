@@ -11,7 +11,7 @@ export class GetUserView {
   @ViewColumn()
   email: string;
   @ViewColumn()
-  id: string;
+  id: number;
 
   public isValidPassword(password: string): boolean {
     return compareSync(password, this.password);
